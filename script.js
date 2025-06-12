@@ -18,18 +18,15 @@ async function fetchArticles(order = "created_at.desc") {
 
   const container = document.getElementById("articles");
   container.innerHTML = articles
-    .map(
-      (a) => `
-    <article>
-      <h3>${a.title}</h3>
-      <h4>${a.subtitle}</h4>
-      <p><strong>${a.author}</strong> – ${new Date(a.created_at).toLocaleDateString("pl-PL")}</p>
-      <p>${a.content}</p>
-      ${a.image_url ? `<p><em>Obraz: ${a.image_url}</em></p>` : ""}
-      ${a.tags ? `<p><strong>Tagi:</strong> ${a.tags}</p>` : ""}
-      <hr>
-    </article>`
-    )
+    .map((a) => `
+      <article>
+        <h3>${a.title}</h3>
+        <h4>${a.subtitle}</h4>
+        <p><strong>${a.author}</strong> – ${new Date(a.created_at).toLocaleDateString("pl-PL")}</p>
+        <p>${a.content}</p>
+        ${a.image_url ? `<p><em>Obraz: ${a.image_url}</em></p>` : ""}
+        <hr>
+    </article>`)
     .join("");
 }
 
@@ -47,9 +44,6 @@ document.getElementById("articleForm").addEventListener("submit", async (e) => {
     author: form.author.value,
     content: form.content.value,
     created_at: form.created_at.value || new Date().toISOString(),
-    image_url: "",
-    is_published: true,
-    tags: "",
   };
 
   const res = await fetch(`${SUPABASE_URL}/rest/v1/article`, {
@@ -62,7 +56,7 @@ document.getElementById("articleForm").addEventListener("submit", async (e) => {
     form.reset();
     fetchArticles();
   } else {
-    alert("Błąd podczas zapisu artykułu");
+    alert("Błąd podczas dodawania artykułu");
   }
 });
 
