@@ -8,7 +8,7 @@ const headers = {
 };
 
 async function fetchArticles(order = "created_at.desc") {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?select=*&order=${order}`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/article?select=*&order=${order}`, {
     headers,
   });
   const articles = await res.json();
