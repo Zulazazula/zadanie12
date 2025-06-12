@@ -7,13 +7,16 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-async function fetchArticles(order = "created_at.desc") {
+async function fetchArticle(order = "created_at.desc") {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/article?select=*&order=${order}`, {
     headers,
   });
   const articles = await res.json();
 
-  const container = document.getElementById("articles");
+  console.log("Pobrane artykuły:", articles);
+
+
+  const container = document.getElementById("article");
   container.innerHTML = articles
     .map((a) => `
       <article>
